@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="recipesViewModel"
+            type="com.example.recipesapp.ui.main.recipe.RecipesViewModel" />
+    </data>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.recipe.RecipesFragment"
+    android:orientation="vertical"
+    android:focusedByDefault="false"
+    android:background="@color/appBackground"
+    android:focusableInTouchMode="true">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/recipe_search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:hint="@string/search"
+        android:layout_margin="6dp"
+        android:drawableLeft="@drawable/search_icon_hint"
+        android:background="@drawable/search_box_background"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:drawableStart="@drawable/search_icon_hint" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/sorted_by_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@{recipesViewModel.sortedByLiveData}"
+        android:layout_margin="6dp"
+        android:text="@string/sort_by"
+        android:textOff="@string/calories"
+        android:textOn="@string/fats"
+        android:sortedByText="@{recipesViewModel.sortedByLiveData}"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipes_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_recipe"
+        android:recyclerViewAdapter="@{recipesViewModel.recipesLiveData}"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/list_scrollbar">
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
+
+</layout>

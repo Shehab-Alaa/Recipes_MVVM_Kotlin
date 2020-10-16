@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#463333</color>
+    <color name="colorPrimaryDark">#392A2A</color>
+    <color name="colorAccent">#107db2</color>
+    <color name="appBackground">#edc988</color>
+    <color name="appBarBackground">#ef353434</color>
+    <color name="dCardViewBackground">#3c454b</color>
+    <color name="dFadeBackground">#737373</color>
+    <color name="dFadeTitleColor">#ffffff</color>
+    <color name="dText">#d2d2d2</color>
+    <color name="dRVBackground">#1f2326</color>
+</resources>

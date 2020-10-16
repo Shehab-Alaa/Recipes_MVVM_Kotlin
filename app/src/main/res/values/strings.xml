@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">RecipesApp</string>
+
+    <string name="empty_screen">We do not have anything\nhere right now.</string>
+    <string name="please_retry">Please Retry</string>
+    <string name="retry">Retry</string>
+    <string name="favorites">Favorites</string>
+    <string name="sort_by">Sort By:</string>
+    <string name="carbohydrates">Carbohydrates</string>
+    <string name="fats">Fats</string>
+    <string name="search">search</string>
+    <string name="calories">Calories</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
