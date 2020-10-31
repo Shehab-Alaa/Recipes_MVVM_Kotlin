@@ -41,12 +41,12 @@ object BindingAdaptersUtils {
         var fats = 1
         var proteins = 1
 
-        if (recipe.getRecipeCarbohydrates()?.isNotEmpty()!!)
-           carbohydrates = recipe.getRecipeCarbohydrates()?.trim()?.get(0)?.toInt()!!
-        if (recipe.getRecipeFats()?.isNotEmpty()!!)
-           fats = recipe.getRecipeFats()?.trim()?.get(0)?.toInt()!!
-        if (recipe.getRecipeProteins()?.isNotEmpty()!!)
-           proteins = recipe.getRecipeProteins()?.trim()?.get(0)?.toInt()!!
+        if (recipe.carbos?.isNotEmpty()!!)
+           carbohydrates = recipe.carbos.trim()[0].toInt()
+        if (recipe.fats?.isNotEmpty()!!)
+           fats = recipe.fats.trim()[0].toInt()
+        if (recipe.proteins?.isNotEmpty()!!)
+           proteins = recipe.proteins.trim()[0].toInt()
 
         val dataEntries : MutableList<DataEntry> = mutableListOf()
         dataEntries.add(ValueDataEntry("Carbohydrates" , carbohydrates))

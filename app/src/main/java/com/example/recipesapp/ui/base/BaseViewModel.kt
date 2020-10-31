@@ -3,13 +3,13 @@ package com.example.recipesapp.ui.base
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.recipesapp.data.DataManager
+import com.example.recipesapp.data.DataRepositorySource
 
-abstract class BaseViewModel(private val dataManager: DataManager, private val savedStateHandle : SavedStateHandle) : ViewModel()  {
+abstract class BaseViewModel(private val dataRepository: DataRepositorySource, private val savedStateHandle : SavedStateHandle) : ViewModel()  {
 
     val isLoading = ObservableBoolean()
 
-    fun getDataManager() : DataManager = dataManager
+    fun getDataManager() : DataRepositorySource = dataRepository
 
     fun getSaveStateHandle() : SavedStateHandle = savedStateHandle
 

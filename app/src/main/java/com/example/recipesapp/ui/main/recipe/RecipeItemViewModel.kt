@@ -8,8 +8,8 @@ import com.example.recipesapp.ui.base.BaseItemListener
 class RecipeItemViewModel(private val recipe: Recipe,
                           private val recipeItemClickListener: RecipeItemClickListener ) {
 
-    val recipeThumbnail: ObservableField<String> = ObservableField<String>(recipe.getRecipeThumbnail())
-    val recipeName: ObservableField<String> = ObservableField<String>(recipe.getRecipeName())
+    val recipeThumbnail: ObservableField<String> = ObservableField<String>(recipe.thumb)
+    val recipeName: ObservableField<String> = ObservableField<String>(recipe.name)
 
     fun onItemClick(view : View){
         recipeItemClickListener.onItemClick(view , recipe)

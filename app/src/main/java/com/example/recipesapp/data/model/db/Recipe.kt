@@ -3,55 +3,42 @@ package com.example.recipesapp.data.model.db
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class Recipe : Serializable {
+data class Recipe(
 
-    private val calories: String? = null
+    val calories: String? ,
 
     @SerializedName("carbos")
-    private val carbos: String? = null
+    val carbos: String? ,
 
     @SerializedName("description")
-    private val description: String? = null
+    val description: String? ,
 
     @SerializedName("difficulty")
-    private val difficulty: Int? = null
+    val difficulty: Int? ,
 
     @SerializedName("fats")
-    private val fats: String? = null
+    val fats: String? ,
 
     @SerializedName("headline")
-    private val headline: String? = null
+    val headline: String? ,
 
     @SerializedName("id")
-    private val id: String? = null
+    val id: String? ,
 
     @SerializedName("image")
-    private val image: String? = null
+    val image: String? ,
 
     @SerializedName("name")
-    private val name: String? = null
+    val name: String? ,
 
     @SerializedName("proteins")
-    private val proteins: String? = null
+    val proteins: String? ,
 
     @SerializedName("thumb")
-    private val thumb: String? = null
+    val thumb: String? ,
 
     @SerializedName("time")
-    private val time: String? = null
+    val time: String? ,
 
     @SerializedName("country")
-    private val country: String? = null
-
-    fun getRecipeThumbnail() : String? { return thumb }
-    fun getRecipeName() : String? { return name }
-    fun getRecipeImage() : String? { return  image }
-    fun getRecipeDescription() : String? { return description }
-    fun getRecipeCalories() : String? { return calories}
-    fun getRecipeProteins() : String? { return proteins }
-    fun getRecipeCarbohydrates() : String? { return carbos }
-    fun getRecipeFats() : String? { return fats }
-
-
-
-}
+    val country: String? ) : Serializable

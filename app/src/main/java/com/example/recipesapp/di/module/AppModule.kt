@@ -4,11 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.recipesapp.data.DataRepository
 import com.example.recipesapp.data.remote.ApiRepository
 import com.example.recipesapp.data.remote.network.ApiClient
 import com.example.recipesapp.data.remote.network.ApiService
 import com.example.recipesapp.utils.AppConstants
 import com.example.recipesapp.utils.NetworkUtils
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,8 +28,6 @@ val appModule = module {
     single { provideOkHttpClient(get() , get ()) }
     single { provideInterceptor(get()) }
     single { provideCache(get()) }
-
-    single { provideApiRepository() }
 
     // single { provideAppDatabase(provideAppContext(get()) , provideDatabaseName())}
     single { provideSharedPreferences(get())}
@@ -78,5 +79,3 @@ private fun provideAppDatabase(context : Context , databaseName : String) = Room
     .allowMainThreadQueries().build()*/
 
 private fun provideSharedPreferences(context: Context) = context.getSharedPreferences(AppConstants.PREF_NAME , Context.MODE_PRIVATE)
-
-private fun provideApiRepository() = ApiRepository()

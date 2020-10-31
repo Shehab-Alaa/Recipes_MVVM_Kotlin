@@ -1,6 +1,10 @@
 package com.example.recipesapp.data.model
 
-sealed class Result<out T : Any> {
-     data class Success<out T : Any>(val data: T) : Result<T>()
-     data class Error(val message: String?, val statusCode: Int? = null) : Result<Nothing>()
+sealed class Result<T>(
+     val data: T? = null,
+     val errorMessage: String? = null,
+     val statusCode: Int? = null
+) {
+     class Success<T>(data: T) : Result<T>(data)
+     class Error<T>(errorMessage: String?,statusCode: Int? = null) : Result<T>(null , errorMessage , statusCode)
 }

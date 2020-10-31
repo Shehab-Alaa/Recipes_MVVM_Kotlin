@@ -18,6 +18,7 @@ import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.databinding.FragmentRecipesBinding
 import com.example.recipesapp.ui.base.BaseFragment
 import com.example.recipesapp.utils.AppConstants
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -36,6 +37,7 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
         val sortedBy = getSavedSortedRecipesChoice()
         // send saved SortedBy to ViewModel as default parameter
         recipesViewModel = getViewModel { parametersOf(SavedStateHandle(mapOf(AppConstants.SORTED_BY to sortedBy))) }
+        recipesViewModel.fetchRecipes()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

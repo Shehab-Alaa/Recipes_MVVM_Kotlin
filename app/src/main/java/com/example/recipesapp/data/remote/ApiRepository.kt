@@ -1,19 +1,16 @@
 package com.example.recipesapp.data.remote
 
+import android.util.Log
 import com.example.recipesapp.data.model.Result
 import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.data.remote.network.ApiService
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class ApiRepository : ApiDataSource , KoinComponent {
-
-    private val apiService: ApiService by inject()
+class ApiRepository(private val apiService: ApiService) : ApiDataSource {
 
     override suspend fun fetchLiveRecipesData(): Result<MutableList<Recipe>> {
         return try {
             val recipes = apiService.getRecipes()
-            Result.Success(recipes)
+            Result.Success(recipes as ArrayList<Recipe>)
         }catch (exception : Exception){
             Result.Error(exception.localizedMessage)
         }
