@@ -11,6 +11,7 @@ import com.example.recipesapp.ui.main.recipe.RecipesViewModel
 import com.example.recipesapp.ui.main.recipe_details.RecipeDetailsViewModel
 import com.example.recipesapp.ui.main.splash.SplashScreenViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module

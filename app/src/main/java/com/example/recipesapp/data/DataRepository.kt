@@ -1,5 +1,6 @@
 package com.example.recipesapp.data
 
+import android.util.Log
 import com.example.recipesapp.data.model.Result
 import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.data.remote.ApiRepository
@@ -15,6 +16,5 @@ class DataRepository(private val apiRepository: ApiRepository , private val ioDi
             emit(apiRepository.fetchLiveRecipesData())
         }.flowOn(ioDispatcher)
     }
-
 
 }

@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_recipe"
-        android:recyclerViewAdapter="@{recipesViewModel.recipesLiveData}"
+        android:recyclerViewAdapter="@{recipesViewModel.recipesLiveData.data}"
         android:scrollbars="vertical"
         android:scrollbarThumbVertical="@drawable/list_scrollbar">
     </androidx.recyclerview.widget.RecyclerView>

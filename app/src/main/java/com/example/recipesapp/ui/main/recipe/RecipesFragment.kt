@@ -2,6 +2,7 @@ package com.example.recipesapp.ui.main.recipe
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.BR
@@ -63,7 +65,6 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
                 }
             }
         }
-
 
         getViewDataBinding().recipeSearchBox.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
