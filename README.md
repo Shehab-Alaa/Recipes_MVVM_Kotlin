@@ -1,7 +1,7 @@
 # Recipes_MVVM_Kotlin (Clean_Architecture)
 
-A recipe guide app that helps you to discover different types of recipes in the RecipesAPI and recipe details
-Implementing MVVM architecture using Koins, Coroutines, Retrofit, LiveData, DataBinding and Navigation Component
+A recipe guide app that helps you to discover different types of recipes in the RecipesAPI , view recipe details and adding recipes to your favorite recipes list
+Implementing MVVM architecture using Koins, Coroutines, Retrofit, LiveData, RoomDatabase, DataBinding and Navigation Component
 Applying Clean Code using OOP , SOLID Priciples , Helper Classes and Repository Pattern.
 
 ### Fetching Data Using Retrofit Network Library
