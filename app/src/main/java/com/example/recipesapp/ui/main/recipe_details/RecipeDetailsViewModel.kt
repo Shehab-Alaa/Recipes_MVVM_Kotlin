@@ -9,18 +9,20 @@ import com.example.recipesapp.utils.AppConstants
 
 class RecipeDetailsViewModel(dataRepository: DataRepositorySource, saveStateHandle : SavedStateHandle) : BaseViewModel(dataRepository,saveStateHandle) {
 
-    val recipe : Recipe = getSaveStateHandle().get(AppConstants.SELECTED_RECIPE)!!
+    val recipe : Recipe? = getSaveStateHandle().get(AppConstants.SELECTED_RECIPE)
 
     val isFavoriteRecipe : MutableLiveData<Boolean> by lazy {
-        getDataManager().isFavoriteRecipe(recipe.id.toString())
+        getDataManager().isFavoriteRecipe(recipe?.id.toString())
     }
 
     fun onFavoriteBtnClick() {
         if(isFavoriteRecipe.value!!){
-            getDataManager().deleteLocalRecipe(recipe.id.toString())
+            getDataManager().deleteLocalRecipe(recipe?.id.toString())
             isFavoriteRecipe.postValue(false)
         }else{
-            getDataManager().insertLocalRecipe(recipe)
+            if (recipe != null) {
+                getDataManager().insertLocalRecipe(recipe)
+            }
             isFavoriteRecipe.postValue(true)
         }
     }
