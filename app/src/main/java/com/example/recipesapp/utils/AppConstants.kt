@@ -17,4 +17,5 @@ object AppConstants {
     const val CALORIES = false
     const val FATS = true
 
+    const val DATABASE_NAME = "favorite_recipes"
 }

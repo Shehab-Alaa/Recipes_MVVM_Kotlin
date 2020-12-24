@@ -1,8 +1,13 @@
 package com.example.recipesapp.data.model.db
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.recipesapp.utils.AppConstants
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity (tableName = AppConstants.DATABASE_NAME)
 data class Recipe(
 
     val calories: String? ,
@@ -23,7 +28,9 @@ data class Recipe(
     val headline: String? ,
 
     @SerializedName("id")
-    val id: String? ,
+    @PrimaryKey
+    @NonNull
+    val id: String,
 
     @SerializedName("image")
     val image: String? ,

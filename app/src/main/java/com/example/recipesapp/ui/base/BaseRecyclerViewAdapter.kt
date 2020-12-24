@@ -19,8 +19,8 @@ abstract class BaseRecyclerViewAdapter<T>(private val items: MutableList<T>) : R
     }
 
     override fun getItemCount(): Int {
-        return if (items.size > 0) items.size else 1
-    } // 1 for Binding Empty Item;
+        return items.size
+    }
 
     fun getItems(): MutableList<T> {
         return items

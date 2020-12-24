@@ -2,7 +2,6 @@ package com.example.recipesapp.ui.main.recipe
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,20 +10,18 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.BR
 import com.example.recipesapp.R
+import com.example.recipesapp.data.model.Result
 import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.databinding.FragmentRecipesBinding
 import com.example.recipesapp.ui.base.BaseFragment
 import com.example.recipesapp.utils.AppConstants
-import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
-
 
 class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>() , RecipesAdapter.RecipesAdapterListener {
 
@@ -40,6 +37,10 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
         // send saved SortedBy to ViewModel as default parameter
         recipesViewModel = getViewModel { parametersOf(SavedStateHandle(mapOf(AppConstants.SORTED_BY to sortedBy))) }
         recipesViewModel.fetchRecipes()
+
+        recipesViewModel.recipesLiveData.observe(this , {
+            handleRecipesDateView(it)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,6 +76,10 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
             false
         })
 
+        getViewDataBinding().btnRetry.setOnClickListener {
+            onRetryClick()
+        }
+
     }
 
     private fun getSavedSortedRecipesChoice() : Boolean {
@@ -109,6 +114,26 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
         if (item.itemId == R.id.action_booksFragment_to_favoriteBooksFragment)
             getNavController().navigate(RecipesFragmentDirections.actionRecipesFragmentToFavoriteRecipesFragment())
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun handleRecipesDateView(status: Result<MutableList<Recipe>>) {
+        when (status) {
+            is Result.Loading -> showLoadingView()
+            is Result.Success -> showDataView(true)
+            is Result.Error -> showDataView(false)
+        }
+    }
+
+    private fun showLoadingView(){
+        getViewDataBinding().recipesLoadingLayout.visibility = View.VISIBLE
+        getViewDataBinding().recipesSuccessLayout.visibility = View.GONE
+        getViewDataBinding().recipesErrorLayout.visibility = View.GONE
+    }
+
+    private fun showDataView(showData: Boolean) {
+        getViewDataBinding().recipesErrorLayout.visibility = if (showData) View.GONE else View.VISIBLE
+        getViewDataBinding().recipesSuccessLayout.visibility = if (showData) View.VISIBLE else View.GONE
+        getViewDataBinding().recipesLoadingLayout.visibility = View.GONE
     }
 
     override fun onItemClick(view: View, item: Recipe) {

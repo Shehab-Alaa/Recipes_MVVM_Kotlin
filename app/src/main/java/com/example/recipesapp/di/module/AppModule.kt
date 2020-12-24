@@ -4,7 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.room.Room
 import com.example.recipesapp.data.DataRepository
+import com.example.recipesapp.data.local.db.AppDatabase
 import com.example.recipesapp.data.remote.ApiRepository
 import com.example.recipesapp.data.remote.network.ApiClient
 import com.example.recipesapp.data.remote.network.ApiService
@@ -29,7 +31,6 @@ val appModule = module {
     single { provideInterceptor(get()) }
     single { provideCache(get()) }
 
-    // single { provideAppDatabase(provideAppContext(get()) , provideDatabaseName())}
     single { provideSharedPreferences(get())}
 }
 
@@ -70,12 +71,5 @@ private fun provideInterceptor(context: Context): Interceptor {
         chain.proceed(request)
     }
 }
-
-private fun provideAppContext(application: Application) = application
-
-/*private fun provideDatabaseName() = AppConstants.DATABASE_NAME
-
-private fun provideAppDatabase(context : Context , databaseName : String) = Room.databaseBuilder(context, AppDatabase::class.java, databaseName)
-    .allowMainThreadQueries().build()*/
 
 private fun provideSharedPreferences(context: Context) = context.getSharedPreferences(AppConstants.PREF_NAME , Context.MODE_PRIVATE)

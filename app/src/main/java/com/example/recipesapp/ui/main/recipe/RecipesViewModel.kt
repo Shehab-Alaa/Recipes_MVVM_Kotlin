@@ -23,6 +23,7 @@ class RecipesViewModel(private val dataRepository: DataRepositorySource, saveSta
 
     fun fetchRecipes() {
         viewModelScope.launch {
+            recipesData.value = Result.Loading()
             dataRepository.requestRecipes().collect{
                 recipesData.value = it
             }
@@ -45,11 +46,6 @@ class RecipesViewModel(private val dataRepository: DataRepositorySource, saveSta
             }
         }
     }*/
-
-    //TODO :: ViewModel emits Result and View Handle this Loading , Success , Error Not Adapter.
-    //TODO :: Search for ProperWays to handle InternetConnectionFailure
-    //TODO :: Solution ==> is to make View Handle all View logic (Visibility , Sorting)
-
 
     fun sortRecipesBy(boolean : Boolean){
         if (boolean == AppConstants.FATS){

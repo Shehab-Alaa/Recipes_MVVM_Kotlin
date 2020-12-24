@@ -1,6 +1,5 @@
 package com.example.recipesapp.data.remote
 
-import android.util.Log
 import com.example.recipesapp.data.model.Result
 import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.data.remote.network.ApiService
