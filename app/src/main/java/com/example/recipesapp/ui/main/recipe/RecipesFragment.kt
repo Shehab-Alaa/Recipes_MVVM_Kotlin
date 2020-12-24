@@ -119,7 +119,10 @@ class RecipesFragment : BaseFragment<FragmentRecipesBinding, RecipesViewModel>()
     private fun handleRecipesDateView(status: Result<MutableList<Recipe>>) {
         when (status) {
             is Result.Loading -> showLoadingView()
-            is Result.Success -> showDataView(true)
+            is Result.Success -> {
+                getViewModel().sortRecipesBy(getViewModel().sortedByLiveData.value)
+                showDataView(true)
+            }
             is Result.Error -> showDataView(false)
         }
     }

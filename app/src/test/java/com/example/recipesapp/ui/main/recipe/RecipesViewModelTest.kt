@@ -8,6 +8,7 @@ import com.example.recipesapp.data.model.Result.Error
 import com.example.recipesapp.data.model.db.Recipe
 import com.example.recipesapp.util.TestCoroutineRule
 import com.example.recipesapp.util.TestModelsGenerator
+import com.example.recipesapp.utils.AppConstants
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -94,7 +95,7 @@ class RecipesViewModelTest {
     fun `get Recipes Error`() {
 
         // Let's do an answer for the liveData
-        val error: Result<MutableList<Recipe>> = Result.Error("NETWORK_ERROR")
+        val error: Result<MutableList<Recipe>> = Error(AppConstants.NETWORK_ERROR)
 
         //1- Mock calls
         coEvery { dataRepository.requestRecipes() } returns flow {
@@ -107,8 +108,85 @@ class RecipesViewModelTest {
         recipesViewModel.recipesLiveData.observeForever{}
 
         // 3- Verify
-        assertEquals("NETWORK_ERROR", recipesViewModel.recipesLiveData.value?.errorMessage)
+        assertEquals(AppConstants.NETWORK_ERROR, recipesViewModel.recipesLiveData.value?.errorMessage)
     }
 
+    @Test
+    fun `search Success`(){
+
+        // Let's do an answer for the liveData
+        val recipesModel = testModelsGenerator.getRecipesData()
+        val recipeSearchName = testModelsGenerator.getRecipeSearchName()
+
+        // 1- Mock Call
+        recipesViewModel = RecipesViewModel(dataRepository, SavedStateHandle())
+        recipesViewModel.recipesData.value = Result.Success(recipesModel)
+
+        // 2- Real Call
+        recipesViewModel.filterRecipesData(recipeSearchName)
+        recipesViewModel.recipesLiveData.observeForever {  }
+
+        // 3- Verify
+        assertEquals(recipeSearchName , recipesViewModel.recipesLiveData.value?.data?.get(0)?.name)
+    }
+
+    @Test
+    fun `search Fail`(){
+        
+        // Let's do an answer for the liveData
+        val recipesModel = testModelsGenerator.getRecipesData()
+        val nonExistRecipeName = testModelsGenerator.getNonExistRecipeName()
+
+        // 1- Mock Call
+        recipesViewModel = RecipesViewModel(dataRepository, SavedStateHandle())
+        recipesViewModel.recipesData.value = Result.Success(recipesModel)
+
+        // 2- Real Call
+        recipesViewModel.filterRecipesData(nonExistRecipeName)
+        recipesViewModel.recipesLiveData.observeForever {  }
+
+        // 3- Verify
+        assertEquals(AppConstants.ERROR_MESSAGE , (recipesViewModel.recipesData.value)?.errorMessage)
+    }
+
+    @Test
+    fun `sort Recipes by Fats`(){
+
+        // Let's do an answer for the liveData
+        val recipesModel = testModelsGenerator.getRecipesData()
+        val expectedSortedRecipes = testModelsGenerator.getSortedRecipesByFats()
+
+        // 1- Mock Call
+        recipesViewModel = RecipesViewModel(dataRepository, SavedStateHandle())
+        recipesViewModel.recipesData.value = Result.Success(recipesModel)
+
+        // 2- Real Call
+        recipesViewModel.sortRecipesBy(AppConstants.FATS)
+        recipesViewModel.recipesLiveData.observeForever {  }
+
+        // 3- Verify
+        assertEquals(AppConstants.FATS , recipesViewModel.sortedByLiveData.value)
+        assertEquals(expectedSortedRecipes , recipesViewModel.recipesLiveData.value?.data)
+    }
+
+    @Test
+    fun `sort Recipes by Calories`(){
+
+        // Let's do an answer for the liveData
+        val recipesModel = testModelsGenerator.getRecipesData()
+        val expectedSortedRecipes = testModelsGenerator.getSortedRecipesByCalories()
+
+        // 1- Mock Call
+        recipesViewModel = RecipesViewModel(dataRepository, SavedStateHandle())
+        recipesViewModel.recipesData.value = Result.Success(recipesModel)
+
+        // 2- Real Call
+        recipesViewModel.sortRecipesBy(AppConstants.CALORIES)
+        recipesViewModel.recipesLiveData.observeForever {  }
+
+        // 3- Verify
+        assertEquals(AppConstants.CALORIES , recipesViewModel.sortedByLiveData.value)
+        assertEquals(expectedSortedRecipes , recipesViewModel.recipesLiveData.value?.data)
+    }
 
 }

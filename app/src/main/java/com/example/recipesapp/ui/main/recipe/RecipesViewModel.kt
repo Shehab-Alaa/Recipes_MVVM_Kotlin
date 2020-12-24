@@ -1,5 +1,6 @@
 package com.example.recipesapp.ui.main.recipe
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -17,9 +18,9 @@ class RecipesViewModel(private val dataRepository: DataRepositorySource, saveSta
     private val sortedBy : MutableLiveData<Boolean> = MutableLiveData(getSaveStateHandle().get(AppConstants.SORTED_BY) ?: AppConstants.CALORIES)
     val sortedByLiveData : LiveData<Boolean> get() = sortedBy
 
-    private val recipesData = MutableLiveData<Result<MutableList<Recipe>>>()
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val recipesData = MutableLiveData<Result<MutableList<Recipe>>>()
     val recipesLiveData : LiveData<Result<MutableList<Recipe>>> get() = recipesData
-
 
     fun fetchRecipes() {
         viewModelScope.launch {
@@ -30,35 +31,21 @@ class RecipesViewModel(private val dataRepository: DataRepositorySource, saveSta
         }
     }
 
-    /*fun fetchRecipes(){
-        viewModelScope.launch(coroutineExceptionHandler) {
-            when(val result = getDataManager().getApiRepository().fetchLiveRecipesData()){
-                is Result.Success<MutableList<Recipe>> -> {
-                    if (sortedBy.value == AppConstants.FATS){
-                        recipesList.value = result.data.sortedBy { it.getRecipeFats() }
-                    }else if (sortedBy.value == AppConstants.CALORIES){
-                        recipesList.value = result.data.sortedBy { it.getRecipeCalories() }
-                    }
-                }
-                is Result.Error ->{
-                    Log.i("Here" , "Recipes Request Failed")
-                }
-            }
-        }
-    }*/
-
-    fun sortRecipesBy(boolean : Boolean){
+    fun sortRecipesBy(boolean : Boolean?){
         if (boolean == AppConstants.FATS){
             sortedBy.postValue(AppConstants.FATS)
-            recipesData.postValue(recipesData.value?.data?.sortedBy { it.fats } as Result<MutableList<Recipe>>?)
+            recipesData.postValue(Result.Success(recipesData.value?.data?.sortedBy { it.fats } as MutableList<Recipe>))
         }else if (boolean == AppConstants.CALORIES){
             sortedBy.postValue(AppConstants.CALORIES)
-            recipesData.postValue(recipesData.value?.data?.sortedBy { it.calories } as Result<MutableList<Recipe>>?)
+            recipesData.postValue(Result.Success(recipesData.value?.data?.sortedBy { it.calories } as MutableList<Recipe>))
         }
     }
 
     fun filterRecipesData(searchInput : String){
-        recipesData.postValue(recipesData.value!!.data?.filter { it.name!!.contains(searchInput) } as Result<MutableList<Recipe>>?)
+        recipesData.postValue(Result.Success(recipesData.value?.data?.filter { it.name!!.contains(searchInput) } as MutableList<Recipe>))
+        if (recipesData.value!!.data.isNullOrEmpty()){
+            recipesData.postValue(Result.Error(AppConstants.ERROR_MESSAGE))
+        }
     }
 
 }

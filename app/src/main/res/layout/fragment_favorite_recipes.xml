@@ -48,7 +48,7 @@
                 android:id="@+id/favorite_recipes_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_recipe"
+                tools:listitem="@layout/item_favorite_recipe"
                 android:recyclerViewAdapter="@{favoriteRecipesViewModel.favoriteRecipesLiveData}"
                 android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@drawable/list_scrollbar">

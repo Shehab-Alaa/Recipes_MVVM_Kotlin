@@ -48,4 +48,11 @@ data class Recipe(
     val time: String? ,
 
     @SerializedName("country")
-    val country: String? ) : Serializable
+    val country: String? ) : Serializable {
+
+
+    override fun equals(other: Any?): Boolean {
+        return name == (other as Recipe).name
+    }
+}
+

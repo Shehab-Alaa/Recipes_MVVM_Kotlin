@@ -18,4 +18,7 @@ object AppConstants {
     const val FATS = true
 
     const val DATABASE_NAME = "favorite_recipes"
+
+    const val NETWORK_ERROR = "network_error"
+    const val ERROR_MESSAGE = "No Data Is Found"
 }
